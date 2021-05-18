@@ -6,9 +6,9 @@ password = input('Enter password ')
 
 warning = """
 WARNING! This is NOT effective strategy. This script might start only on demo-account!
-Enter 'yes' if you use demo account: 
+Author of code is not responsible for your financial losses.
+Enter 'yes' for accept and continue: 
 """
-
 answer = input(warning)
 if answer != 'yes':
     quit(1)
@@ -21,7 +21,7 @@ if result:
 else:
     raise Exception('Not login')
 
-symbol = 'AUDCAD'
+symbol = 'EURUSD'
 volume = 0.01
 
 # current candle
@@ -38,8 +38,8 @@ request = {
     'volume': volume,
     'type': mt5.ORDER_TYPE_BUY,
     'magic': 12345,
-    'sl': 0.91,
-    'tp': 0.95,
+    'sl': 1.1,
+    'tp': 1.3,
     'type_time': mt5.ORDER_TIME_GTC,
 }
 result = mt5.order_send(request)
@@ -54,8 +54,8 @@ request = {
     'action': mt5.TRADE_ACTION_SLTP,
     'position': order.ticket,
     'symbol': order.symbol,
-    'sl': 0.90,
-    'tp': 0.96,
+    'sl': 1.05,
+    'tp': 1.35,
 }
 result = mt5.order_send(request)
 print('Update sl/tp result: ', result)
@@ -79,15 +79,17 @@ if result.retcode != 10009:
     raise Exception(f'Bad status {result.retcode}')
 print('Current positions: ', mt5.positions_get(symbol='AUDCAD'))
 
+# check price on pending order
+print("Price for pending order", mt5.order_calc_margin(mt5.ORDER_TYPE_BUY, symbol, volume, 1.22))
 # open pending order
 request = {
     'action': mt5.TRADE_ACTION_PENDING,
     'symbol': symbol,
     'volume': volume,
-    'price': 0.935,
+    'price': 1.22,
     'type': mt5.ORDER_TYPE_BUY_LIMIT,
-    'sl': 0.91,
-    'tp': 0.95,
+    'sl': 1.1,
+    'tp': 1.3,
     'magic': 12345,
     'type_time': mt5.ORDER_TIME_GTC,
     'type_filling': mt5.ORDER_FILLING_RETURN,
@@ -106,8 +108,8 @@ request = {
     'order': order.ticket,
     'price': order.price_open,
     'symbol': order.symbol,
-    'sl': 0.90,
-    'tp': 0.96,
+    'sl': 1.05,
+    'tp': 1.35,
 }
 result = mt5.order_send(request)
 print('Result modify pending order ', result)
