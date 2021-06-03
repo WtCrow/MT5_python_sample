@@ -46,7 +46,7 @@ result = mt5.order_send(request)
 print('Open order by market result: ', result)
 if result.retcode != 10009:
     raise Exception(f'Bad status {result.retcode}')
-print('Current positions: ', mt5.positions_get(symbol='AUDCAD'))
+print('Current positions: ', mt5.positions_get(symbol=symbol))
 
 # modify sl/tp in opened position
 order = mt5.positions_get(symbol=symbol)[0]
@@ -61,7 +61,7 @@ result = mt5.order_send(request)
 print('Update sl/tp result: ', result)
 if result.retcode != 10009:
     raise Exception(f'Bad status {result.retcode}')
-print('Current positions: ', mt5.positions_get(symbol='AUDCAD'))
+print('Current positions: ', mt5.positions_get(symbol=symbol))
 
 # close opened order by market
 order = mt5.positions_get(symbol=symbol)[0]
@@ -77,7 +77,7 @@ result = mt5.order_send(request)
 print('Close order result ', result)
 if result.retcode != 10009:
     raise Exception(f'Bad status {result.retcode}')
-print('Current positions: ', mt5.positions_get(symbol='AUDCAD'))
+print('Current positions: ', mt5.positions_get(symbol=symbol))
 
 # check price on pending order
 print("Price for pending order", mt5.order_calc_margin(mt5.ORDER_TYPE_BUY, symbol, volume, 1.22))
@@ -98,8 +98,8 @@ result = mt5.order_send(request)
 print('Open pending order result ', result)
 if result.retcode != 10009:
     raise Exception(f'Bad status {result.retcode}')
-print('Current pending orders: ', mt5.orders_get(symbol='AUDCAD'))
-print('Current positions: ', mt5.positions_get(symbol='AUDCAD'))
+print('Current pending orders: ', mt5.orders_get(symbol=symbol))
+print('Current positions: ', mt5.positions_get(symbol=symbol))
 
 # update pending order
 order = mt5.orders_get(symbol=symbol)[0]
@@ -115,8 +115,8 @@ result = mt5.order_send(request)
 print('Result modify pending order ', result)
 if result.retcode != 10009:
     raise Exception(f'Bad status {result.retcode}')
-print('Current pending orders: ', mt5.orders_get(symbol='AUDCAD'))
-print('Current positions: ', mt5.positions_get(symbol='AUDCAD'))
+print('Current pending orders: ', mt5.orders_get(symbol=symbol))
+print('Current positions: ', mt5.positions_get(symbol=symbol))
 
 # delete pending order
 request = {
@@ -127,5 +127,5 @@ result = mt5.order_send(request)
 print('Result delete pending order ', result)
 if result.retcode != 10009:
     raise Exception(f'Bad status {result.retcode}')
-print('Current pending orders: ', mt5.orders_get(symbol='AUDCAD'))
-print('Current positions: ', mt5.positions_get(symbol='AUDCAD'))
+print('Current pending orders: ', mt5.orders_get(symbol=symbol))
+print('Current positions: ', mt5.positions_get(symbol=symbol))
